@@ -1,0 +1,9 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "react/forbid-prop-types": "off",
+    "no-underscore-dangle": "off",
+    "react/prop-types": "off",
+    "quote-props": "off"
+ }
+}

@@ -1,0 +1,9 @@
+node_modules
+.env
+
+tmp/*
+backup
+result/*
+test.js
+*.cookies.json
+.next
