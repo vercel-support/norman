@@ -1,40 +1,36 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import _ from 'lodash';
 import withStyles from 'react-jss';
+import Grid from '@material-ui/core/Grid';
 
-import {
-  Row, Col,
-} from 'reactstrap';
 
 import MovieCard from './MovieCard';
 
-const chunkSize = 6;
-
-const styles = {
-  movie__wrapper: {
-    'paddingTop': '10px',
-    'color': '#fff',
+const styles = theme => ({
+  container: {
+    [theme.breakpoints.up('lg')]: {
+      width: 1280,
+    },
+    paddingTop: '50px',
+    paddingBottom: '50px',
   },
-};
+  gridItem: {
+    padding: '0px 1%',
+  },
+});
 
 const MovieGrid = ({ movies, classes }) => (
-  <Fragment>
-    {
-      _.map(_.chunk(movies, chunkSize), chunkedMovies => (
-        <div key={chunkedMovies[0]._id} className={classes.movie__wrapper}>
-          <Row key={chunkedMovies[0]._id}>
-            {
-              _.map(chunkedMovies, movie => (
-                <Col key={movie._id} xs="2">
-                  <MovieCard movie={movie} />
-                </Col>
-              ))
-            }
-          </Row>
-        </div>
-      ))
-    }
-  </Fragment>
+  <React.Fragment>
+    <Grid container className={classes.container} alignItems="center" justify="center">
+      {
+        _.map((movies), movie => (
+          <Grid item className={classes.gridItem} key={movie._id}>
+            <MovieCard movie={movie} />
+          </Grid>
+        ))
+      }
+    </Grid>
+  </React.Fragment>
 );
 
 export default withStyles(styles)(MovieGrid);

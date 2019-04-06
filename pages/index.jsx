@@ -1,18 +1,21 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import fetch from 'isomorphic-unfetch';
 import config from 'config';
-
-import {
-  Container,
-} from 'reactstrap';
-
 import MovieGrid from '../components/MovieGrid';
 
+const styles = () => ({
+  root: {
+    backgroundColor: '#000000',
+    color: '#fff',
+  },
+});
 
-const Index = ({ movies }) => (
-  <Container>
+const Index = ({ classes, movies }) => (
+  <Grid container justify="center" className={classes.root}>
     <MovieGrid movies={movies} />
-  </Container>
+  </Grid>
 );
 
 Index.getInitialProps = async () => {
@@ -22,4 +25,4 @@ Index.getInitialProps = async () => {
   return { movies };
 };
 
-export default Index;
+export default withStyles(styles)(Index);
