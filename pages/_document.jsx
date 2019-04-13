@@ -9,7 +9,7 @@ import flush from 'styled-jsx/server';
 const __NEXT_CONFIG__ = { ...config };
 
 const styles = {
-  root: {
+  htmlBody: {
     backgroundColor: '#000000',
     color: '#fff',
   },
@@ -20,7 +20,7 @@ class NormanDocument extends Document {
     const { pageContext } = this.props;
 
     return (
-      <html lang="en" dir="ltr" style={styles.root}>
+      <html lang="en" dir="ltr" style={styles.htmlBody}>
         <Head>
           <meta charSet="utf-8" />
 
@@ -31,8 +31,9 @@ class NormanDocument extends Document {
           <meta name="theme-color" content={pageContext ? pageContext.theme.palette.primary.main : null} />
 
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+          <link rel="stylesheet" type="text/css" href="/static/nprogress.min.css" />
         </Head>
-        <body>
+        <body style={styles.htmlBody}>
           <Main />
           <script
             // eslint-disable-next-line react/no-danger

@@ -1,10 +1,17 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
+import Router from 'next/router';
+import NProgress from 'nprogress';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
 import getPageContext from '../utils/getPageContext';
+
+NProgress.configure({ showSpinner: false });
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
 
 class NormanApp extends App {
   constructor() {
