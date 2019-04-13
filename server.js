@@ -17,6 +17,10 @@ app.prepare()
       return app.render(req, res, '/');
     });
 
+    server.get('/:slug', (req, res) => {
+      return app.render(req, res, '/movie', { slug: req.params.slug });
+    });
+
     // For all other routes, use next.js.
     server.get('*', (req, res) => {
       return handle(req, res);

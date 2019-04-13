@@ -3,7 +3,6 @@ import _ from 'lodash';
 import withStyles from 'react-jss';
 import Grid from '@material-ui/core/Grid';
 
-
 import MovieCard from './MovieCard';
 
 const styles = theme => ({
@@ -20,7 +19,7 @@ const styles = theme => ({
 });
 
 const MovieGrid = ({ movies, classes }) => (
-  <React.Fragment>
+  <div>
     <Grid container className={classes.container} alignItems="center" justify="center">
       {
         _.map((movies), movie => (
@@ -30,7 +29,7 @@ const MovieGrid = ({ movies, classes }) => (
         ))
       }
     </Grid>
-  </React.Fragment>
+  </div>
 );
 
 export default withStyles(styles)(MovieGrid);
