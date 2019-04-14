@@ -23,7 +23,7 @@ const styles = theme => ({
     backgroundSize: 'cover',
   },
   movie__header_overlay: {
-    backgroundColor: 'rgba(14.12%, 14.51%, 16.86%, 0.9)',
+    backgroundColor: 'rgba(14.12%, 14.51%, 16.86%, 0.95)',
   },
   movie__poster_container: {
     padding: '2em 2em',
@@ -69,7 +69,7 @@ const styles = theme => ({
     padding: '0',
   },
   movie__featured_crew_item: {
-    padding: '0em 0em',
+    paddingRight: '5em',
   },
   movie__featured_crew_name: {
     fontWeight: 'bold',
@@ -84,7 +84,7 @@ const styles = theme => ({
 
 const MovieHeader = ({ movie, classes }) => (
   <div className={classes.movie__header} style={{ backgroundImage: `url(${movie.coverImageUrl})` }}>
-    <div className={classes.movie__header_overlay}>
+    <Grid container className={classes.movie__header_overlay}>
       <Grid container justify="center">
         <Grid item className={classes.container}>
           <Grid item className={classes.movie__poster_container}>
@@ -143,7 +143,7 @@ const MovieHeader = ({ movie, classes }) => (
           </div>
         </Grid>
       </Grid>
-    </div>
+    </Grid>
   </div>
 );
 

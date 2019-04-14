@@ -35,7 +35,7 @@ class NormanApp extends App {
     return (
       <Container>
         <Head>
-          <title>Emma</title>
+          <title>Norman</title>
         </Head>
         {/* Wrap every page in Jss and Theme providers */}
         <JssProvider
