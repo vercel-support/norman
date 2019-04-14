@@ -71,6 +71,7 @@ const styles = {
     position: 'absolute',
     width: '10.32em',
     transition: 'opacity .3s ease',
+    cursor: 'pointer',
   },
   movie__play_icon: {
     color: 'white',

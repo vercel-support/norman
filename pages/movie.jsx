@@ -3,11 +3,13 @@ import { withStyles } from '@material-ui/core/styles';
 
 import getMovie from '../api/get-movie';
 import MovieHeader from '../components/MovieHeader';
+import MovieAppbar from '../components/MovieAppbar';
 
 const styles = {};
 
 const Movie = ({ movie }) => (
   <React.Fragment>
+    <MovieAppbar />
     <MovieHeader movie={movie} />
   </React.Fragment>
 );
