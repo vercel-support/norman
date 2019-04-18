@@ -1,10 +1,11 @@
-import _ from 'lodash';
-import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import LazyLoad from 'react-lazyload';
-import { withStyles } from '@material-ui/core/styles';
+import React from 'react';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
+import _ from 'lodash';
+
 import { PlayArrow } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   container: {
@@ -40,7 +41,7 @@ const styles = theme => ({
     opacity: '0.6',
   },
   movie__concensus: {
-    maxWidth: '15em',
+    maxWidth: '23em',
     display: 'inline-flex',
   },
   movie__concensus_label: {
@@ -62,43 +63,64 @@ const styles = theme => ({
   movie__play_trailer_icon_label: {
     marginTop: '0.2em',
   },
-  movie__featured_crew: {
+  movie__featured_list: {
     listStyleType: 'none',
     display: 'inline-flex',
     margin: '0 auto',
     padding: '0',
   },
-  movie__featured_crew_item: {
+  movie__featured_item: {
     paddingRight: '5em',
   },
-  movie__featured_crew_name: {
+  movie__featured_name: {
     fontWeight: 'bold',
     margin: '0 auto',
     fontSize: '14px',
   },
-  movie__featured_crew_job: {
+  movie__featured_job: {
     margin: '0 auto',
     fontSize: '14px',
   },
+  movie__genres: {
+    listStyleType: 'none',
+    display: 'inline-flex',
+    margin: '0 auto',
+    padding: '0',
+  },
+  movie__genre_item: {
+    paddingRight: '1em',
+  },
+  movie__component_title: {
+    fontWeight: 'bold',
+  },
+  movie__component_section: {
+    marginTop: '1em',
+  },
 });
 
-const MovieHeader = ({ movie, classes }) => (
+const MovieDetailHeader = ({ movie, classes }) => (
   <div className={classes.movie__header} style={{ backgroundImage: `url(${movie.coverImageUrl})` }}>
     <Grid container className={classes.movie__header_overlay}>
       <Grid container justify="center">
         <Grid item className={classes.container}>
+
+          { /* Section poster */ }
           <Grid item className={classes.movie__poster_container}>
             <LazyLoad height="100%" offset={100} once>
               <img className={classes.movie__poster} src={movie.posterUrl} alt={movie.name} />
             </LazyLoad>
           </Grid>
           <div className={classes.movie__description}>
+
+            { /* Section name */ }
             <h2>
               {movie.name}
               <span className={classes.movie__released_year}>
                 {` (${movie.released.year})`}
               </span>
             </h2>
+
+            { /* Section widget and concensus */ }
             <div className={classes.movie__concensus}>
               <ReactMinimalPieChart
                 data={[
@@ -118,28 +140,54 @@ const MovieHeader = ({ movie, classes }) => (
               />
               <span className={classes.movie__concensus_label}>User score</span>
               {
-                // Display trailer url if exists
-                movie.trailerUrl ? (
+                /* Display trailer url if exists
+                   Some url filled with empty embed utube url */
+                (movie.trailerUrl && movie.trailerUrl !== 'https://www.youtube.com/embed/') ? (
                   <a href={movie.trailerUrl} className={classes.movie__play_trailer_icon}>
                     <PlayArrow />
                     <div className={classes.movie__play_trailer_icon_label}>Play trailer</div>
                   </a>
                 ) : ''
               }
+
+              <a href={movie.trailerUrl} className={classes.movie__play_trailer_icon}>
+                <PlayArrow />
+                <div className={classes.movie__play_trailer_icon_label}>Play Movie</div>
+              </a>
             </div>
-            <h3>Overview</h3>
-            <p>{movie.summary}</p>
-            <h3>Featured Crew</h3>
-            <ol className={classes.movie__featured_crew}>
-              {
-                _.map(movie.directors, director => (
-                  <li className={classes.movie__featured_crew_item} key={director.label}>
-                    <p className={classes.movie__featured_crew_name}>{director.label}</p>
-                    <p className={classes.movie__featured_crew_job}>Director</p>
-                  </li>
-                ))
-              }
-            </ol>
+            { /* Section overview */ }
+            <div className={classes.movie__component_section}>
+              <h3 className={classes.movie__component_title}>
+                Overview
+              </h3>
+              <p>{movie.summary}</p>
+            </div>
+
+            { /* Section feature crew */ }
+            <div className={classes.movie__component_section}>
+              <h3 className={classes.movie__component_title}>Featured by</h3>
+              <ol className={classes.movie__featured_list}>
+                {
+                  _.map(movie.directors, director => (
+                    <li className={classes.movie__featured_item} key={director.label}>
+                      <p className={classes.movie__featured_name}>{director.label}</p>
+                      <p className={classes.movie__featured_job}>Director</p>
+                    </li>
+                  ))
+                }
+              </ol>
+
+              <ol className={classes.movie__featured_list}>
+                {
+                  _.map(movie.stars, star => (
+                    <li className={classes.movie__featured_item} key={star.label}>
+                      <p className={classes.movie__featured_name}>{star.label}</p>
+                      <p className={classes.movie__featured_job}>Cast</p>
+                    </li>
+                  ))
+                }
+              </ol>
+            </div>
           </div>
         </Grid>
       </Grid>
@@ -147,4 +195,4 @@ const MovieHeader = ({ movie, classes }) => (
   </div>
 );
 
-export default withStyles(styles)(MovieHeader);
+export default withStyles(styles)(MovieDetailHeader);

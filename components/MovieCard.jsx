@@ -58,6 +58,7 @@ const styles = {
     marginTop: '3px',
   },
   movie__poster__wrapper: {
+    width: '10em',
   },
   movie__poster_overlay: {
     '&:hover': {
