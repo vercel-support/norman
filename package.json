@@ -6,6 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
+    "@material-ui/lab": "^3.0.0-alpha.30",
     "@material-ui/styles": "^3.0.0-alpha.10",
     "@zeit/next-css": "^1.0.1",
     "bootstrap": "^4.3.1",
@@ -21,11 +22,15 @@
     "next-config": "0.0.2",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
+    "randomstring": "^1.1.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-jss": "^8.6.1",
+    "react-jw-player": "^1.19.0",
     "react-lazyload": "^2.5.0",
+    "react-load-script": "0.0.6",
     "react-minimal-pie-chart": "^4.0.0",
+    "react-swipeable-views": "^0.13.1",
     "reactstrap": "^7.1.0",
     "styled-jsx": "^3.2.1"
   },

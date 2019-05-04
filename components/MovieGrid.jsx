@@ -19,17 +19,15 @@ const styles = theme => ({
 });
 
 const MovieGrid = ({ movies, classes }) => (
-  <div>
-    <Grid container className={classes.container} alignItems="center" justify="center">
-      {
-        _.map((movies), movie => (
-          <Grid item className={classes.gridItem} key={movie._id}>
-            <MovieCard movie={movie} />
-          </Grid>
-        ))
-      }
-    </Grid>
-  </div>
+  <Grid container className={classes.container} alignItems="center" justify="center">
+    {
+      _.map((movies), movie => (
+        <Grid item className={classes.gridItem} key={movie._id}>
+          <MovieCard movie={movie} />
+        </Grid>
+      ))
+    }
+  </Grid>
 );
 
 export default withStyles(styles)(MovieGrid);
