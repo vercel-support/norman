@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import LazyLoad from 'react-lazyload';
 import Link from 'next/link';
@@ -58,7 +59,7 @@ const styles = {
     marginTop: '3px',
   },
   movie__poster__wrapper: {
-    width: '10em',
+    minWidth: '10em',
   },
   movie__poster_overlay: {
     '&:hover': {
@@ -101,9 +102,9 @@ const MovieCard = ({ movie, classes }) => (
         </span>
 
         {/* Quality */}
-        <span className={classes.movie__quality__wrapper} style={{ 'backgroundColor': qualityStyles[movie.quality].color }}>
+        <span className={classes.movie__quality__wrapper} style={{ 'backgroundColor': _.get(qualityStyles, [movie.quality, 'color'], 'transparent') }}>
           <Typography component="h3" variant="h3" color="inherit" className={classes.movie__quality}>
-            {qualityStyles[movie.quality].label}
+            {_.get(qualityStyles, [movie.quality, 'label'], '')}
           </Typography>
         </span>
 

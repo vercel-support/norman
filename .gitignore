@@ -4,6 +4,6 @@ node_modules
 tmp/*
 backup
 result/*
-test.js
+test-*
 *.cookies.json
 .next

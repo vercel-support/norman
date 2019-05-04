@@ -2,7 +2,10 @@ const fetch = require('isomorphic-unfetch');
 const LRU = require('lru-cache');
 const config = require('config');
 
-const moviesCache = new LRU();
+const moviesCache = new LRU({
+  max: 500,
+  maxAge: 1000 * 60 * 60,
+});
 
 const getMovies = async () => {
   const apiUrl = config.get('API_URL');

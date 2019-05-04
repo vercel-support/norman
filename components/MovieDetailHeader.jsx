@@ -1,8 +1,11 @@
 import Grid from '@material-ui/core/Grid';
 import LazyLoad from 'react-lazyload';
+import Link from 'next/link';
 import React from 'react';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import _ from 'lodash';
+
+import orange from '@material-ui/core/colors/orange';
 
 import { PlayArrow } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
@@ -29,6 +32,10 @@ const styles = theme => ({
   movie__poster_container: {
     padding: '2em 2em',
     textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
+      display: 'inline-block',
+      maxWidth: '20%',
+    },
   },
   movie__poster: {
     borderRadius: '5px',
@@ -36,24 +43,28 @@ const styles = theme => ({
   movie__description: {
     textAlign: 'justify',
     padding: '0em 2em',
+    [theme.breakpoints.up('md')]: {
+      display: 'inline-block',
+      maxWidth: '80%',
+    },
   },
   movie__released_year: {
     opacity: '0.6',
   },
   movie__concensus: {
-    maxWidth: '23em',
     display: 'inline-flex',
   },
   movie__concensus_label: {
-    padding: '1.5em 0.5em',
+    margin: '3em 1em',
     fontWeight: 'bold',
+    display: 'inline-block',
   },
   movie__play_trailer_icon: {
     '&:hover': {
       opacity: '0.5',
     },
-    display: 'inline-flex',
-    padding: '2em 0.5em',
+    display: 'inline-block',
+    padding: '2.8em 0.5em',
     fontWeight: 'bold',
     whiteSpace: 'nowrap',
     textDecoration: 'none',
@@ -61,7 +72,9 @@ const styles = theme => ({
     transition: 'opacity .3s ease',
   },
   movie__play_trailer_icon_label: {
-    marginTop: '0.2em',
+    display: 'inline-block',
+    position: 'relative',
+    bottom: '0.3em',
   },
   movie__featured_list: {
     listStyleType: 'none',
@@ -96,6 +109,10 @@ const styles = theme => ({
   movie__component_section: {
     marginTop: '1em',
   },
+  movie__pie_chart: {
+    display: 'inline-block',
+    width: '6em',
+  },
 });
 
 const MovieDetailHeader = ({ movie, classes }) => (
@@ -111,7 +128,6 @@ const MovieDetailHeader = ({ movie, classes }) => (
             </LazyLoad>
           </Grid>
           <div className={classes.movie__description}>
-
             { /* Section name */ }
             <h2>
               {movie.name}
@@ -123,10 +139,11 @@ const MovieDetailHeader = ({ movie, classes }) => (
             { /* Section widget and concensus */ }
             <div className={classes.movie__concensus}>
               <ReactMinimalPieChart
+                className={classes.movie__pie_chart}
                 data={[
                   {
                     value: Number(movie.ratingValue || 0),
-                    color: '#E38627',
+                    color: orange[500],
                   }]}
                 totalValue={10}
                 lineWidth={20}
@@ -150,10 +167,12 @@ const MovieDetailHeader = ({ movie, classes }) => (
                 ) : ''
               }
 
-              <a href={movie.trailerUrl} className={classes.movie__play_trailer_icon}>
-                <PlayArrow />
-                <div className={classes.movie__play_trailer_icon_label}>Play Movie</div>
-              </a>
+              <Link as={`/${movie.slug}/play`} href={`/play/${movie.slug}`}>
+                <a className={classes.movie__play_trailer_icon}>
+                  <PlayArrow />
+                  <div className={classes.movie__play_trailer_icon_label}>Play Movie</div>
+                </a>
+              </Link>
             </div>
             { /* Section overview */ }
             <div className={classes.movie__component_section}>

@@ -8,10 +8,10 @@ import getMovies from '../api/get-movies';
 
 const styles = () => {};
 
-const Index = ({ classes, movies }) => (
+const Index = ({ movies }) => (
   <React.Fragment>
     <MovieAppbar />
-    <Grid container justify="center" className={classes.root}>
+    <Grid container justify="center">
       <MovieGrid movies={movies} />
     </Grid>
   </React.Fragment>
