@@ -16,7 +16,8 @@ const styles = () => ({
     padding: '0',
   },
   movie__featured_item: {
-    paddingRight: '5em',
+    minWidth: '10em',
+    marginTop: '1em',
   },
   movie__featured_name: {
     fontWeight: 'bold',
@@ -36,7 +37,7 @@ const MovieDetailFeaturedCrew = ({ classes, directors, stars }) => (
       {
         _.map(directors, director => (
           <li className={classes.movie__featured_item} key={director.label}>
-            <p className={classes.movie__featured_name}>{director.label}</p>
+            <p className={classes.movie__featured_name}>{director.label || '-'}</p>
             <p className={classes.movie__featured_job}>Director</p>
           </li>
         ))
@@ -47,7 +48,7 @@ const MovieDetailFeaturedCrew = ({ classes, directors, stars }) => (
       {
         _.map(stars, star => (
           <li className={classes.movie__featured_item} key={star.label}>
-            <p className={classes.movie__featured_name}>{star.label}</p>
+            <p className={classes.movie__featured_name}>{star.label || '-'}</p>
             <p className={classes.movie__featured_job}>Cast</p>
           </li>
         ))

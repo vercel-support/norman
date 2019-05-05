@@ -17,8 +17,10 @@ const Index = ({ movies }) => (
   </React.Fragment>
 );
 
-Index.getInitialProps = async () => {
-  const movies = await getMovies();
+Index.getInitialProps = async ({ query }) => {
+  const { queryObject } = query;
+
+  const movies = await getMovies(queryObject);
 
   return { movies };
 };

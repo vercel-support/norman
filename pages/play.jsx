@@ -113,6 +113,10 @@ class MoviePlay extends React.Component {
   render() {
     const { selectedProvider, selectedQualityIndex, togglePopupState } = this.state;
 
+    if (!selectedProvider) {
+      return 'No available provider, choose other movies';
+    }
+
     return (
       <React.Fragment>
         <MovieAppbar />

@@ -13,38 +13,39 @@ const port = process.env.PORT || 3000;
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const handlerRedirection = async (req, res, redirectUrl) => {
-  const response = await request.get(redirectUrl);
+const handlerRedirection = async (req, res, redirectUrl) => Bluebird.resolve()
+  .then(async () => {
+    const response = await request.get(redirectUrl);
 
-  const contentType = response.headers['content-type'];
+    const contentType = response.headers['content-type'];
 
-  if (contentType.indexOf('image') >= 0) {
-    const img = Buffer.from(response.body, 'base64');
+    if (contentType.indexOf('image') >= 0) {
+      const img = Buffer.from(response.body, 'base64');
 
-    res.writeHead(200, {
-      'Content-Type': contentType,
-      'Content-Length': img.length,
-    });
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Content-Length': img.length,
+      });
 
-    return res.end(img);
-  }
+      return res.end(img);
+    }
 
-  if (_.endsWith(redirectUrl, '.srt')) {
-    res.setHeader('Content-type', contentType);
+    if (_.endsWith(redirectUrl, '.srt')) {
+      res.setHeader('Content-type', contentType);
 
-    const parsedSrt = srt2vtt(response.text);
+      const parsedSrt = srt2vtt(response.text);
 
-    return res.send(parsedSrt);
-  }
+      return res.send(parsedSrt);
+    }
 
-  if (contentType) {
-    res.setHeader('Content-type', contentType);
+    if (contentType) {
+      res.setHeader('Content-type', contentType);
+
+      return res.send(response.text);
+    }
 
     return res.send(response.text);
-  }
-
-  return res.send(response.text);
-};
+  });
 
 app.prepare()
   .then(() => {
@@ -54,16 +55,15 @@ app.prepare()
       const { redirectUrl } = req.query;
 
       if (redirectUrl) {
-        try {
-          return handlerRedirection(req, res, redirectUrl);
-        } catch (err) {
-          console.log(JSON.stringify(err));
+        return handlerRedirection(req, res, redirectUrl)
+          .catch((err) => {
+            console.log(JSON.stringify(err));
 
-          return app.render(req, res, '/');
-        }
+            return app.render(req, res, '/', { queryObject: req.query });
+          });
       }
 
-      return app.render(req, res, '/');
+      return app.render(req, res, '/', { queryObject: req.query });
     });
 
     server.get('/:slug', (req, res) => {
