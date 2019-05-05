@@ -1,14 +1,11 @@
 import Grid from '@material-ui/core/Grid';
 import LazyLoad from 'react-lazyload';
-import Link from 'next/link';
 import React from 'react';
-import ReactMinimalPieChart from 'react-minimal-pie-chart';
-import _ from 'lodash';
-
-import orange from '@material-ui/core/colors/orange';
-
-import { PlayArrow } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+
+import MovieDetailFeaturedCrew from './MovieDetailFeaturedCrew';
+import MovieDetailWidgets from './MovieDetailWidgets';
 
 const styles = theme => ({
   container: {
@@ -51,49 +48,6 @@ const styles = theme => ({
   movie__released_year: {
     opacity: '0.6',
   },
-  movie__concensus: {
-    display: 'inline-flex',
-  },
-  movie__concensus_label: {
-    margin: '3em 1em',
-    fontWeight: 'bold',
-    display: 'inline-block',
-  },
-  movie__play_trailer_icon: {
-    '&:hover': {
-      opacity: '0.5',
-    },
-    display: 'inline-block',
-    padding: '2.8em 0.5em',
-    fontWeight: 'bold',
-    whiteSpace: 'nowrap',
-    textDecoration: 'none',
-    color: 'inherit',
-    transition: 'opacity .3s ease',
-  },
-  movie__play_trailer_icon_label: {
-    display: 'inline-block',
-    position: 'relative',
-    bottom: '0.3em',
-  },
-  movie__featured_list: {
-    listStyleType: 'none',
-    display: 'inline-flex',
-    margin: '0 auto',
-    padding: '0',
-  },
-  movie__featured_item: {
-    paddingRight: '5em',
-  },
-  movie__featured_name: {
-    fontWeight: 'bold',
-    margin: '0 auto',
-    fontSize: '14px',
-  },
-  movie__featured_job: {
-    margin: '0 auto',
-    fontSize: '14px',
-  },
   movie__genres: {
     listStyleType: 'none',
     display: 'inline-flex',
@@ -108,10 +62,6 @@ const styles = theme => ({
   },
   movie__component_section: {
     marginTop: '1em',
-  },
-  movie__pie_chart: {
-    display: 'inline-block',
-    width: '6em',
   },
 });
 
@@ -136,44 +86,15 @@ const MovieDetailHeader = ({ movie, classes }) => (
               </span>
             </h2>
 
+            <Divider variant="fullWidth" />
             { /* Section widget and concensus */ }
-            <div className={classes.movie__concensus}>
-              <ReactMinimalPieChart
-                className={classes.movie__pie_chart}
-                data={[
-                  {
-                    value: Number(movie.ratingValue || 0),
-                    color: orange[500],
-                  }]}
-                totalValue={10}
-                lineWidth={20}
-                label
-                labelStyle={{
-                  fontSize: '40px',
-                  fontFamily: 'sans-serif',
-                }}
-                labelPosition={0}
-                radius={50}
-              />
-              <span className={classes.movie__concensus_label}>User score</span>
-              {
-                /* Display trailer url if exists
-                   Some url filled with empty embed utube url */
-                (movie.trailerUrl && movie.trailerUrl !== 'https://www.youtube.com/embed/') ? (
-                  <a href={movie.trailerUrl} className={classes.movie__play_trailer_icon}>
-                    <PlayArrow />
-                    <div className={classes.movie__play_trailer_icon_label}>Play trailer</div>
-                  </a>
-                ) : ''
-              }
+            <MovieDetailWidgets
+              ratingValue={movie.ratingValue}
+              trailerUrl={movie.trailerUrl}
+              slug={movie.slug}
+            />
 
-              <Link as={`/${movie.slug}/play`} href={`/play/${movie.slug}`}>
-                <a className={classes.movie__play_trailer_icon}>
-                  <PlayArrow />
-                  <div className={classes.movie__play_trailer_icon_label}>Play Movie</div>
-                </a>
-              </Link>
-            </div>
+            <Divider variant="fullWidth" />
             { /* Section overview */ }
             <div className={classes.movie__component_section}>
               <h3 className={classes.movie__component_title}>
@@ -182,31 +103,14 @@ const MovieDetailHeader = ({ movie, classes }) => (
               <p>{movie.summary}</p>
             </div>
 
-            { /* Section feature crew */ }
-            <div className={classes.movie__component_section}>
-              <h3 className={classes.movie__component_title}>Featured by</h3>
-              <ol className={classes.movie__featured_list}>
-                {
-                  _.map(movie.directors, director => (
-                    <li className={classes.movie__featured_item} key={director.label}>
-                      <p className={classes.movie__featured_name}>{director.label}</p>
-                      <p className={classes.movie__featured_job}>Director</p>
-                    </li>
-                  ))
-                }
-              </ol>
+            <Divider variant="fullWidth" />
+            { /* Section featured crew */ }
+            <MovieDetailFeaturedCrew
+              stars={movie.stars}
+              directors={movie.directors}
+            />
 
-              <ol className={classes.movie__featured_list}>
-                {
-                  _.map(movie.stars, star => (
-                    <li className={classes.movie__featured_item} key={star.label}>
-                      <p className={classes.movie__featured_name}>{star.label}</p>
-                      <p className={classes.movie__featured_job}>Cast</p>
-                    </li>
-                  ))
-                }
-              </ol>
-            </div>
+            <Divider variant="fullWidth" />
           </div>
         </Grid>
       </Grid>

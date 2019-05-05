@@ -1,5 +1,10 @@
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
@@ -8,15 +13,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 import getMoviePlay from '../api/get-movie-play';
 import MovieAppbar from '../components/MovieAppbar';
-import MoviePlayIframeHolder from '../components/MoviePlayIframeHolder';
+import MoviePlayPlayer from '../components/MoviePlayPlayer';
 import MoviePlayProviderButtons from '../components/MoviePlayProviderButtons';
 
 const styles = theme => ({
@@ -61,6 +61,7 @@ class MoviePlay extends React.Component {
     this.fullScreen = props.fullScreen;
     this.moviePlay = props.moviePlay;
     this.playItems = props.moviePlay.playList.playItems;
+    this.subtitles = props.moviePlay.playList.subtitles;
 
     this.qualities = _.keys(this.playItems).sort((a, b) => a.replace(/\D/g, '') - b.replace(/\D/g, ''));
     this.onChangeQuality = this.onChangeQuality.bind(this);
@@ -115,7 +116,11 @@ class MoviePlay extends React.Component {
     return (
       <React.Fragment>
         <MovieAppbar />
-        <MoviePlayIframeHolder source={selectedProvider.file} title={this.moviePlay.name} />
+        <MoviePlayPlayer
+          source={selectedProvider.file}
+          title={this.moviePlay.name}
+          subtitles={this.subtitles}
+        />
         <div className={this.classes.movie__play_provider_selection}>
           <Dialog
             fullScreen={this.fullScreen}
@@ -182,7 +187,7 @@ class MoviePlay extends React.Component {
               className={this.classes.movie__play_provider_configuration_button}
               onClick={() => this.handleTogglePopup(true)}
             >
-              Configure server
+              Configure Movie Provider
             </Button>
           </Grid>
         </Grid>
