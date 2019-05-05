@@ -30,7 +30,7 @@ const Tracks = ({ subtitles }) => {
               label={defaultSubtitle.label}
               kind={defaultSubtitle.kind}
               srcLang={defaultSubtitle.srcLang}
-              src={`http://localhost:3000?redirectUrl=${defaultSubtitle.file}`}
+              src={`/?redirectUrl=${defaultSubtitle.file}`}
               default
             />
           ) : ''
@@ -43,7 +43,7 @@ const Tracks = ({ subtitles }) => {
             label={subtitle.label}
             kind={subtitle.kind}
             srcLang={subtitle.srcLang}
-            src={`http://localhost:3000?redirectUrl=${subtitle.file}`}
+            src={`/?redirectUrl=${subtitle.file}`}
           />
         ))
       }
@@ -55,20 +55,18 @@ const VideoPlayer = ({
   classes, source, title, subtitles,
 }) => {
   return (
-    <div className={classes.movie__play_player_holder}>
-      <video
-        width="100%"
-        name={title}
-        controls
-        autoPlay
-        className={`${classes.movie__play_player} video-js`}
-        preload="auto"
-      >
-        <source src={source} type="video/mp4" />
-        <Tracks subtitles={subtitles} />
-        Your browser does not support HTML5 video.
-      </video>
-    </div>
+    <video
+      width="100%"
+      name={title}
+      controls
+      autoPlay
+      className={classes.movie__play_player}
+      preload="auto"
+    >
+      <source src={source} type="video/mp4" />
+      <Tracks subtitles={subtitles} />
+      Your browser does not support HTML5 video.
+    </video>
   );
 };
 
