@@ -1,19 +1,68 @@
+const _ = require('lodash');
 const next = require('next');
 const express = require('express');
+const Bluebird = require('bluebird');
+const superagent = require('superagent').agent();
+
+const request = Bluebird.promisifyAll(superagent);
+
+const srt2vtt = require('./utils/srt-to-vtt');
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+const handlerRedirection = async (req, res, redirectUrl) => {
+  const response = await request.get(redirectUrl);
+
+  const contentType = response.headers['content-type'];
+
+  if (contentType.indexOf('image') >= 0) {
+    const img = Buffer.from(response.body, 'base64');
+
+    res.writeHead(200, {
+      'Content-Type': contentType,
+      'Content-Length': img.length,
+    });
+
+    return res.end(img);
+  }
+
+  if (_.endsWith(redirectUrl, '.srt')) {
+    res.setHeader('Content-type', contentType);
+
+    const parsedSrt = srt2vtt(response.text);
+
+    return res.send(parsedSrt);
+  }
+
+  if (contentType) {
+    res.setHeader('Content-type', contentType);
+
+    return res.send(response.text);
+  }
+
+  return res.send(response.text);
+};
+
 app.prepare()
   .then(() => {
     const server = express();
 
-    // Nice permalinks for pages.
-    // Sets up a custom route, that then uses next.js to render the about page.
-    server.get('/', (req, res) => {
-      // const params = { id: req.params.id };
+    server.get('/', async (req, res) => {
+      const { redirectUrl } = req.query;
+
+      if (redirectUrl) {
+        try {
+          return handlerRedirection(req, res, redirectUrl);
+        } catch (err) {
+          console.log(JSON.stringify(err));
+
+          return app.render(req, res, '/');
+        }
+      }
+
       return app.render(req, res, '/');
     });
 
