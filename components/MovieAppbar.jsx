@@ -1,9 +1,7 @@
-import _ from 'lodash';
 import AppBar from '@material-ui/core/AppBar';
 import InputBase from '@material-ui/core/InputBase';
 import Link from 'next/link';
 import React from 'react';
-import Router, { withRouter } from 'next/router';
 import SearchIcon from '@material-ui/icons/Search';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -96,7 +94,8 @@ class MovieAppbar extends React.Component {
   handleSearchBoxOnSubmit(e) {
     e.preventDefault();
     const { searchString } = this.state;
-    const queryObject = _.cloneDeep(Router.query);
+
+    const queryObject = {};
     queryObject.search = searchString;
 
 
@@ -106,7 +105,6 @@ class MovieAppbar extends React.Component {
 
   render() {
     const { searchString } = this.state;
-    console.log(searchString);
 
     return (
       <AppBar position="static">
