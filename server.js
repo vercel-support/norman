@@ -52,17 +52,17 @@ app.prepare()
     const server = express();
 
     server.get('/', async (req, res) => {
-      const { redirectUrl } = req.query;
-
-      if (redirectUrl) {
-        return handlerRedirection(req, res, redirectUrl)
-          .catch((err) => {
-            console.log(JSON.stringify(err));
-
-            return app.render(req, res, '/', { queryObject: req.query });
-          });
-      }
       return app.render(req, res, '/', { queryObject: req.query });
+    });
+
+    server.get('/redirect', async (req, res) => {
+      const { url } = req.query;
+
+      if (!url) {
+        return handle(req, res);
+      }
+
+      return handlerRedirection(req, res, url);
     });
 
     server.get('/:slug', (req, res) => {

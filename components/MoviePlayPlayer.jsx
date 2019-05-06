@@ -30,7 +30,7 @@ const Tracks = ({ subtitles }) => {
               label={defaultSubtitle.label}
               kind={defaultSubtitle.kind}
               srcLang={defaultSubtitle.srcLang}
-              src={`/?redirectUrl=${defaultSubtitle.file}`}
+              src={`/redirect?url=${defaultSubtitle.file}`}
               default
             />
           ) : ''
@@ -43,7 +43,7 @@ const Tracks = ({ subtitles }) => {
             label={subtitle.label}
             kind={subtitle.kind}
             srcLang={subtitle.srcLang}
-            src={`/?redirectUrl=${subtitle.file}`}
+            src={`/redirect?url=${subtitle.file}`}
           />
         ))
       }
