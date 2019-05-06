@@ -111,8 +111,8 @@ class MovieAppbar extends React.Component {
     return (
       <AppBar position="static">
         <Toolbar>
-          <Link href="/"><Home className={this.classes.menuButton} /></Link>
-          <Link href="/">
+          <Link href="/" as="/"><Home className={this.classes.menuButton} /></Link>
+          <Link href="/" as="/">
             <Typography className={this.classes.title} variant="h6" color="inherit" noWrap>
               Norman
             </Typography>
@@ -140,4 +140,4 @@ class MovieAppbar extends React.Component {
   }
 }
 
-export default withRouter(withStyles(styles)(MovieAppbar));
+export default withStyles(styles)(MovieAppbar);

@@ -16,7 +16,7 @@ const styles = () => ({
     padding: '0',
   },
   movie__featured_item: {
-    minWidth: '10em',
+    minWidth: '8em',
     marginTop: '1em',
   },
   movie__featured_name: {

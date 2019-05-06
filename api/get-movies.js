@@ -9,17 +9,18 @@ const moviesCache = new LRU({
   maxAge: 1000 * 60 * 60,
 });
 
-const getMovies = async (queryObject) => {
+const getMovies = async (queryObject = {}) => {
   const apiUrl = config.get('API_URL');
 
-  const clonedQueryObject = _.cloneDeep(queryObject);
+  if (!queryObject.type) {
+    queryObject.type = 'movie';
+  }
 
-  _.defaults(clonedQueryObject, {
-    type: 'movie',
-    page: 1,
-  });
+  if (!queryObject.page) {
+    queryObject.page = '1';
+  }
 
-  const queryString = stringify(clonedQueryObject);
+  const queryString = stringify(queryObject);
   const endPoint = `${apiUrl}/movie?${queryString}`;
 
   let movies = moviesCache.get(endPoint);

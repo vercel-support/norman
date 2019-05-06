@@ -62,7 +62,6 @@ app.prepare()
             return app.render(req, res, '/', { queryObject: req.query });
           });
       }
-
       return app.render(req, res, '/', { queryObject: req.query });
     });
 

@@ -4,7 +4,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 
-import MovieDetailFeaturedCrew from './MovieDetailFeaturedCrew';
+import MovieDetailFeaturedCrews from './MovieDetailFeaturedCrews';
+import MovieDetailGenreList from './MovieDetailGenreList';
 import MovieDetailWidgets from './MovieDetailWidgets';
 
 const styles = theme => ({
@@ -39,7 +40,7 @@ const styles = theme => ({
   },
   movie__description: {
     textAlign: 'justify',
-    padding: '0em 2em',
+    padding: '0em 1em',
     [theme.breakpoints.up('md')]: {
       display: 'inline-block',
       maxWidth: '80%',
@@ -95,6 +96,10 @@ const MovieDetailHeader = ({ movie, classes }) => (
             />
 
             <Divider variant="fullWidth" />
+            { /* Section genre */ }
+            <MovieDetailGenreList genres={movie.genres} />
+
+            <Divider variant="fullWidth" />
             { /* Section overview */ }
             <div className={classes.movie__component_section}>
               <h3 className={classes.movie__component_title}>
@@ -105,7 +110,7 @@ const MovieDetailHeader = ({ movie, classes }) => (
 
             <Divider variant="fullWidth" />
             { /* Section featured crew */ }
-            <MovieDetailFeaturedCrew
+            <MovieDetailFeaturedCrews
               stars={movie.stars}
               directors={movie.directors}
             />
