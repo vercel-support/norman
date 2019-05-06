@@ -4,9 +4,6 @@ import withStyles from 'react-jss';
 import Chip from '@material-ui/core/Chip';
 
 const styles = () => ({
-  movie__component_section: {
-    // marginTop: '1em',
-  },
   movie__component_title: {
     fontWeight: 'bold',
   },
@@ -17,19 +14,16 @@ const styles = () => ({
     padding: '0',
   },
   movie__genre_item: {
-    // minWidth: '10em',
-    // marginTop: '1em',
     marginRight: '1em',
   },
   movie__genre_name: {
     margin: '0 auto',
     fontSize: '14px',
-    // color: 'white',
   },
 });
 
 const MovieDetailGenreList = ({ classes, genres }) => (
-  <div className={classes.movie__component_section}>
+  <React.Fragment>
     <h3 className={classes.movie__component_title}>Genre (s)</h3>
     <ol className={classes.movie__genre_list}>
       {
@@ -40,7 +34,7 @@ const MovieDetailGenreList = ({ classes, genres }) => (
         ))
       }
     </ol>
-  </div>
+  </React.Fragment>
 );
 
 export default withStyles(styles)(MovieDetailGenreList);
