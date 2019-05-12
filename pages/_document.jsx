@@ -30,6 +30,7 @@ class NormanDocument extends Document {
           {/* PWA primary color */}
           <meta name="theme-color" content={pageContext ? pageContext.theme.palette.primary.main : null} />
 
+          <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
           <link rel="stylesheet" type="text/css" href="/static/nprogress.min.css" />
         </Head>

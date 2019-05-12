@@ -2,6 +2,10 @@ const _ = require('lodash');
 const next = require('next');
 const express = require('express');
 const Bluebird = require('bluebird');
+const compression = require('compression');
+const favicon = require('serve-favicon');
+const path = require('path');
+
 const superagent = require('superagent').agent();
 
 const request = Bluebird.promisifyAll(superagent);
@@ -50,6 +54,8 @@ const handlerRedirection = async (req, res, redirectUrl) => Bluebird.resolve()
 app.prepare()
   .then(() => {
     const server = express();
+    server.use(compression());
+    server.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
 
     server.get('/', async (req, res) => {
       return app.render(req, res, '/', { queryObject: req.query });
