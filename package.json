@@ -43,8 +43,9 @@
   "scripts": {
     "dev": "rm -rf .next && node server",
     "build": "next build",
-    "start": "next build && node server",
-    "now-build": "npm run build"
+    "start": "NODE_ENV=production node server.js -p $PORT",
+    "now-build": "npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "keywords": [],
   "author": "",
