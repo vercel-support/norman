@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "package.json", "use": "@now/next" },
+    { "src": "static/*", "use": "@now/static" },
+    { "src": "server.js", "use": "@now/node-server" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/" },
+    { "src": "/redirect", "dest": "/redirect" },
+    { "src": "/(.*)", "dest": "/movie/$1" },
+    { "src": "/(.*)/play", "dest": "/play/$1" },
+    { "src": "/favicon.ico", "dest": "/static/favicon.ico" }
+  ]
+}
