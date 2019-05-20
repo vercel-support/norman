@@ -1,7 +1,8 @@
-const withPlugins = require('next-compose-plugins');
-const withConfig = require('next-config');
+const nextConfig = {
+  target: 'serverless',
+  env: {
+    API_URL: process.env.API_URL
+  }
+}
 
-module.exports = withPlugins([
-  [withConfig],
-  { target: 'serverless' },
-]);
+module.exports = nextConfig;
