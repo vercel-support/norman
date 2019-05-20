@@ -12,7 +12,6 @@
     "bluebird": "^3.5.4",
     "bootstrap": "^4.3.1",
     "compression": "^1.7.4",
-    "config": "^3.1.0",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "htmlescape": "^1.1.1",
@@ -44,7 +43,7 @@
   "scripts": {
     "dev": "rm -rf .next && node server",
     "build": "next build",
-    "start": "next start",
+    "start": "next build && node server",
     "now-build": "npm run build"
   },
   "keywords": [],

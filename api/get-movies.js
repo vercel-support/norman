@@ -1,7 +1,7 @@
 const fetch = require('isomorphic-unfetch');
-const _ = require('lodash');
 const LRU = require('lru-cache');
 const { stringify } = require('query-string');
+const config = require('../next.config');
 
 const moviesCache = new LRU({
   max: 500,
@@ -9,7 +9,7 @@ const moviesCache = new LRU({
 });
 
 const getMovies = async (queryObject = {}) => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = config.env.API_URL;
 
   if (!queryObject.type) {
     queryObject.type = 'movie';
