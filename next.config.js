@@ -1,8 +1,8 @@
 const nextConfig = {
   target: 'serverless',
   env: {
-    API_URL: process.env.API_URL
-  }
-}
+    API_URL: 'https://emma.davidasync.now.sh',
+  },
+};
 
 module.exports = nextConfig;

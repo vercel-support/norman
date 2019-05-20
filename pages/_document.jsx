@@ -1,12 +1,7 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-import config from 'config';
-import htmlescape from 'htmlescape';
 import PropTypes from 'prop-types';
 import flush from 'styled-jsx/server';
-
-// eslint-disable-next-line no-underscore-dangle
-const __NEXT_CONFIG__ = { ...config };
 
 const styles = {
   htmlBody: {
@@ -36,14 +31,6 @@ class NormanDocument extends Document {
         </Head>
         <body style={styles.htmlBody}>
           <Main />
-          <script
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{
-              __html: `
-                __NEXT_CONFIG__ = ${htmlescape(__NEXT_CONFIG__)}
-              `,
-            }}
-          />
           <NextScript />
         </body>
       </html>

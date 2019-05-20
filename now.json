@@ -7,8 +7,8 @@
   "routes": [
     { "src": "/", "dest": "/" },
     { "src": "/redirect", "dest": "/redirect" },
-    { "src": "/(.*)", "dest": "/movie/$1" },
-    { "src": "/(.*)/play", "dest": "/play/$1" },
+    { "src": "/(?<slug>[^/]+)$", "dest": "/movie/$slug" },
+    { "src": "/(?<slug>[^/]+)$/play", "dest": "/play/$slug" },
     { "src": "/_next/static/(?:[^/]+/pages|chunks|runtime)/.+", "headers": { "cache-control": "immutable,max-age=31536000" } }
   ],
   "build": {

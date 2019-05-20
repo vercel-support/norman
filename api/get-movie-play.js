@@ -1,5 +1,6 @@
 const fetch = require('isomorphic-unfetch');
 const LRU = require('lru-cache');
+const config = require('../next.config');
 
 const moviePlayCache = new LRU({
   max: 1000,
@@ -7,7 +8,7 @@ const moviePlayCache = new LRU({
 });
 
 const getMoviePlay = async (slug) => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = config.env.API_URL;
   const endPoint = `${apiUrl}/movie/${slug}/play`;
 
   let moviePlay = moviePlayCache.get(endPoint);
