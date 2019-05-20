@@ -1,7 +1,6 @@
 const fetch = require('isomorphic-unfetch');
 const _ = require('lodash');
 const LRU = require('lru-cache');
-const config = require('config');
 const { stringify } = require('query-string');
 
 const moviesCache = new LRU({
@@ -10,7 +9,7 @@ const moviesCache = new LRU({
 });
 
 const getMovies = async (queryObject = {}) => {
-  const apiUrl = config.get('API_URL');
+  const apiUrl = process.env.API_URL;
 
   if (!queryObject.type) {
     queryObject.type = 'movie';
